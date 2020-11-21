@@ -9,14 +9,17 @@ print('''
 # 파일의 디렉토리 설정
 sf.set_data_dir('./SimfinData/')
 sf.set_api_key(simfin_api)
+
+# 데이터를 다운로드하는 구절
+company = sf.load_companies(market='us')
+industry = sf.load_industries()
+income = sf.load_income(variant='quarterly-full', market='us')
+balance = sf.load_balance(variant='quarterly-full', market='us')
+cash = sf.load_cashflow(variant='quarterly-full', market='us')
+priceratio = sf.load_derived_shareprices(variant='latest', market='us')
+price = sf.load_shareprices(variant='daily', market='us')
+price = price.reset_index()
+
 #
-# # 데이터를 다운로드하는 구절
-# # company = sf.load_companies(market='us')
-# # industry = sf.load_industries()
-# # income = sf.load_income(variant='quarterly-full', market='us')
-# # balance = sf.load_balance(variant='quarterly-full', market='us')
-# # cash = sf.load_cashflow(variant='quarterly-full', market='us')
-# # priceratio = sf.load_derived_shareprices(variant='latest', market='us')
-#
-# print(price.head())
-# print(price.columns)
+print(price.head())
+print(price.columns)
