@@ -21,6 +21,9 @@ sf.set_api_key(simfin_api)
 
 # ====== 여기서부터는 테이블을 하나씩 업로드 =====
 # 1. 기업리스트를 업로드하는 부분
+# 아직은 없는 데이터만 새로 삽입하는 것이 구현되지 못해서
+# 매번 테이블을 비우고 다시 업로드하는 방법을 사용
+# 컬럼명이나 컬럼의 속성은 mysql에서 직접 고치는 방법을 사용
 q = 'truncate table usstock_db.company;'
 cursor.execute(q)
 conn.commit()
@@ -42,6 +45,8 @@ cursor.executemany(q,data)
 conn.commit()
 
 # 기업의 손익계산서를 업로드하는 부분
+# 여기서 melt를 이용해 각 항목을 하나의 컬럼으로 집어넣음
+# 때문에 데이터를 업로드하는 데 시간이 꽤 걸림
 q = 'truncate table usstock_db.income;'
 cursor.execute(q)
 conn.commit()
@@ -69,6 +74,7 @@ cursor.executemany(q,data)
 conn.commit()
 
 # 기업들의 일별 종목을 업로드하는 부분
+# 기업의 실적과 마찬가지로 업로드하는데 시간이 필요함
 q = 'truncate table usstock_db.price;'
 cursor.execute(q)
 conn.commit()
@@ -80,5 +86,7 @@ data = price2.values.tolist()
 cursor.executemany(q,data)
 conn.commit()
 
+# mysql에서 충돌없이 확인하기 위해
+# 연결을 끊어주는 문구가 꼭 필요함
 conn.close()
 
