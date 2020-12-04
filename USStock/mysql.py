@@ -1,4 +1,22 @@
 import pandas as pd
+# 폴더 지우기
+import os
+location = './SimfinData/'
+try:
+    files = os.listdir(location)
+    print(files)
+    for f in files:
+        try:
+            os.remove(location+f)
+            print(f+' 삭제 완료')
+        except:
+            file2 = os.listdir(location)
+            for f2 in file2:
+                os.remove(location+f2)
+            os.rmdir(location+f)
+            print(f+' 삭제 완료')
+except:
+    print('데이터 파일이 비어있습니다')
 
 # 원격 데이터 베이스 접속
 import pymysql
