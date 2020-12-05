@@ -4,17 +4,16 @@ import os
 location = './SimfinData/'
 try:
     files = os.listdir(location)
-    print(files)
     for f in files:
         try:
-            os.remove(location+f)
-            print(f+' 삭제 완료')
+            os.remove(location + f)
+            print(f + ' 삭제 완료')
         except:
-            file2 = os.listdir(location)
+            file2 = os.listdir(location + f)
             for f2 in file2:
-                os.remove(location+f2)
-            os.rmdir(location+f)
-            print(f+' 삭제 완료')
+                os.remove(location + f + '/' + f2)
+            os.rmdir(location + f)
+            print(f + ' 삭제 완료')
 except:
     print('데이터 파일이 비어있습니다')
 
