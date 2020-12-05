@@ -11,14 +11,14 @@ cursor = conn.cursor()
 
 print('mysql connnected')
 try:
-    cursor.execute('drop table mid_table.s_it_stock_top_30')
+    cursor.execute('drop table mid_table.s_cc_stock_top_30')
     print('table deleted')
 except:
     pass
     print('table doesnt exists')
 
 q = '''
-create table if not exists mid_table.s_it_stock_top_30 as 
+create table if not exists mid_table.s_cc_stock_top_30 as 
 
 select 
 	A.ticker
@@ -42,11 +42,11 @@ left join
 	on A.ticker = c.ticker 
 left join SideProject2021.price d 
 on a.ticker = d.ticker and c.d_date = d.d_date
-where b.sector = 'Technology'
+where b.sector = 'Consumer Cyclical'
 order by 5 desc
 limit 30
 ;
 '''
 cursor.execute(q)
 conn.close()
-print('s_it_stock_top_30 table craeted')
+print('s_cc_stock_top_30 table craeted')
